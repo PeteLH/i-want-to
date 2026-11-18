@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fbf6ef" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#17130f" media="(prefers-color-scheme: dark)">
+<title>I want to…</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ PLAY ============ -->
+<section class="screen" id="screen-play">
+  <header class="top">
+    <div class="top-text">
+      <div class="kicker"><span class="dot" id="syncdot"></span><span id="play-kicker">Play</span></div>
+      <h1 class="big hd">I want to…</h1>
+    </div>
+    <button class="avatar" id="avatarBtn" aria-label="Settings">?</button>
+  </header>
+  <div class="chips" id="play-cats"></div>
+  <div class="deck-wrap">
+    <div class="deck" id="deck"></div>
+    <div class="empty" id="deck-empty" hidden></div>
+  </div>
+  <div class="swipe-btns" id="swipe-btns">
+    <button class="sbtn undo" id="b-undo" aria-label="Undo last swipe"><svg viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button>
+    <button class="sbtn no" id="b-no" aria-label="No"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <button class="sbtn maybe" id="b-maybe" aria-label="Maybe"><span>?</span></button>
+    <button class="sbtn yes" id="b-yes" aria-label="Yes"><svg viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.4-7.5-10.3A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.6c0 5.9-7.5 10.3-7.5 10.3z"/></svg></button>
+    <span class="sbtn-spacer"></span>
+  </div>
+  <p class="swipe-hint" id="swipe-hint">Swipe right for yes, left for no, up for maybe</p>
+</section>
+
+<!-- ============ ADD ============ -->
+<section class="screen" id="screen-add">
+  <header class="top">
+    <div class="top-text">
+      <div class="kicker">Add an idea</div>
+      <h1 class="big hd">I want to…</h1>
+    </div>
+  </header>
+  <div class="pad">
+    <div class="card addcard">
+      <textarea id="add-text" rows="2" maxlength="140" placeholder="go wild swimming" enterkeyhint="done"></textarea>
+      <div class="addrow"><button class="btn ghost small" id="inspire-btn">✨ Inspire me</button><span class="grow"></span><button class="btn" id="add-btn" disabled>Add it</button></div>
+    </div>
+    <div class="h3 lab">Category</div>
+    <div class="chips wrap" id="add-cats"></div>
+    <p class="hint" id="add-hint"></p>
+    <div id="add-nudge"></div>
+    <div id="add-recent"></div>
+  </div>
+</section>
+
+<!-- ============ LIST ============ -->
+<section class="screen" id="screen-list">
+  <header class="top">
+    <div class="top-text">
+      <div class="kicker" id="list-kicker">The list</div>
+      <h1 class="big hd">Our list</h1>
+    </div>
+  </header>
+  <div class="tabs" id="list-tabs" role="tablist"></div>
+  <div class="chips" id="list-cats"></div>
+  <div class="pad" id="list-body"></div>
+</section>
+
+<!-- ============ SETTINGS ============ -->
+<section class="screen" id="screen-settings">
+  <div class="bar"><button class="iconbtn" data-back aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button><h1 class="mid hd">Settings</h1></div>
+  <div class="pad" id="settings-body"></div>
+</section>
+
+<!-- ============ WELCOME ============ -->
+<section class="screen" id="screen-welcome">
+  <div class="welcome">
+    <div class="logo"><img src="icon.svg" alt=""></div>
+    <h1 class="big2 hd" id="w-title">I want to…</h1>
+    <p class="sub" id="w-sub">Add things you'd like to do. Swipe on each other's. See what you both want.</p>
+    <div id="w-steps"></div>
+    <button class="linkbtn" id="w-skip">Skip for now</button>
+    <div id="w-advanced" hidden></div>
+  </div>
+</section>
+
+<nav class="nav" id="nav">
+  <button data-tab="play"><svg viewBox="0 0 24 24"><rect x="6" y="3.5" width="12" height="17" rx="2.5"/><path d="M3 7v10M21 7v10"/></svg><span>Play</span><b class="badge" id="badge-play" hidden></b></button>
+  <button data-tab="add" class="addtab"><span class="plus"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><span>Add</span></button>
+  <button data-tab="list"><svg viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.4-7.5-10.3A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.6c0 5.9-7.5 10.3-7.5 10.3z"/></svg><span>List</span><b class="badge" id="badge-list" hidden></b></button>
+</nav>
+
+<dialog id="sheet" class="sheet"><div id="sheet-body"></div></dialog>
+
+<div class="match" id="match" hidden>
+  <div class="match-in">
+    <div class="burst" aria-hidden="true">🎉</div>
+    <div class="kicker">It's a match</div>
+    <h2 class="big2 hd">You both want to…</h2>
+    <p class="match-text hd" id="match-text"></p>
+    <button class="btn" id="match-ok">Brilliant</button>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script src="version.js"></script>
+<script src="config.js"></script>
+<script src="core.js"></script>
+<script src="inspire.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
